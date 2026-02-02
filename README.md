@@ -1,64 +1,52 @@
-Robust Multi-Agent Stock Analyst
-
-1. Project Vision
-The Robust Multi-Agent Stock Analyst is an autonomous financial research environment designed to bridge the gap between retail trading and institutional-grade data analysis. While most modern AI financial tools rely on expensive, third-party Large Language Model (LLM) APIs (like OpenAI or Gemini) to provide insights, this project is built on a fully local, rule-based intelligence framework.
-It mimics a professional investment committee where specialized "agents" (scripts) perform individual tasks—technical analysis, risk management, and fundamental research—before a central "Synthesizer" generates a final investment thesis.
-
-2. Technical Architecture & Agent Workflow
-The system operates using an Orchestrator Pattern. When a user enters a stock ticker, the following workflow is triggered:
-
-A. Ticker Resolution Agent
-Purpose: Ensures data integrity.
-Logic: It uses "fuzzy matching" to resolve company names (e.g., "Apple") into valid exchange tickers (AAPL). It validates the ticker against Yahoo Finance to ensure historical data exists before passing it to the next agent.
-
-B. Machine Learning (ML) Forecast Agent
+🌟 Project Vision
+The system mimics a professional investment committee. Specialized "agents" perform individual tasks—technical analysis, risk management, and fundamental research—before a central Synthesizer generates a final, logic-backed investment report.
+🤖 The Multi-Agent Workflow
+The system operates using an Orchestrator Pattern, triggering a specialized sequence for every ticker:
+🔍 A. Ticker Resolution Agent
+Ensures data integrity by using "fuzzy matching" to resolve company names (e.g., "Apple") into valid exchange symbols (AAPL) and validating them via Yahoo Finance.
+📈 B. Machine Learning (ML) Forecast Agent
 Model: Random Forest Regressor.
-Features: It calculates technical indicators including EMA (12/26), RSI (14-day), Volatility (20-day), and Moving Averages (10/50/200).
-Recursive Forecasting: Unlike standard models that predict a single point, this agent performs recursive prediction. It predicts "Day 1," then uses that prediction as an input to predict "Day 2," continuing for a 14-day horizon to simulate a price path.
-Confidence Scoring: It measures the model's accuracy against the last 30 days of real data to provide a "High/Medium/Low" confidence rating.
-
-C. Risk Metrics Agent
-Quantitative Math: It calculates professional risk ratios:
-Sharpe Ratio: Reward-to-volatility efficiency.
-Sortino Ratio: Focuses specifically on "bad" (downside) volatility.
-Maximum Drawdown: The largest peak-to-trough decline in a 2-year period.
-Beta: Correlation and sensitivity to the S&P 500 (SPY).
-Value at Risk (VaR): Predicts potential losses at a 95% confidence interval.
-
-D. Market Intelligence Agent
-Fundamental Analysis: Scrapes P/E ratios, Debt-to-Equity, Return on Equity (ROE), and Market Cap.
-Insider Tracking: Analyzes the most recent 10 insider transactions (CEOs/Directors) to determine if the "smart money" is buying or selling.
-Sentiment Analysis: Pulls recent news headlines and analyst recommendations (Buy/Hold/Sell) from institutional firms.
-
-E. Visualization Agent
-Produces a dual-pane financial chart.
-Upper Pane: Price action + Moving Average ribbons + the 14-day ML Forecast path with a 5% confidence shaded band.
-Lower Pane: Volume bars color-coded by buying/selling pressure.
-
-3. The "Brain": Rule-Based AI Synthesizer
-The most innovative part of this project is the Rule-Based AI Synthesizer. Instead of sending data to an LLM, it uses a Weighted Scoring Algorithm to simulate human judgment:
-Fact-Checking: It looks at the outputs of all other agents.
-Weighted Scoring:
-A Bullish ML Forecast adds +3 points.
-High Insider Selling subtracts -3 points.
-An RSI over 70 (Overbought) subtracts -2 points.
-Conflict Resolution: If the ML Forecast is bullish but the Technical Trend is "Strong Bearish," the synthesizer penalizes the confidence score and issues a "Neutral/Hold" verdict.
-Actionable Insights: It automatically calculates Conservative/Aggressive Entry Points and Stop-Loss levels based on the current volatility.
-
-4. Key Innovation: No-API Dependency
-By using a rule-based engine instead of a Generative AI API:
+Features: Calculates EMA (12/26), RSI, Volatility, and Moving Averages (10/50/200).
+Recursive Forecasting: Performs step-by-step prediction for a 14-day horizon, using each day's output as the next day's input to simulate a realistic price path.
+Confidence Scoring: Back-tests against the last 30 days of real data to provide a "High/Medium/Low" reliability rating.
+⚖️ C. Risk Metrics Agent
+Calculates institutional-grade quantitative ratios:
+Sharpe & Sortino Ratios: Measuring reward-to-volatility efficiency.
+Maximum Drawdown: Analyzing historical peak-to-trough declines.
+Beta: Sensitivity relative to the S&P 500.
+Value at Risk (VaR): Potential losses at a 95% confidence interval.
+💡 D. Market Intelligence Agent
+Fundamentals: Scrapes P/E, Debt-to-Equity, ROE, and Market Cap.
+Insider Tracking: Monitors the last 10 transactions by CEOs/Directors to detect "smart money" movement.
+Sentiment: Aggregates news headlines and institutional analyst recommendations.
+🎨 E. Visualization Agent
+Generates a professional dual-pane financial chart:
+Upper: Price action, MA ribbons, and the 14-day ML forecast path with a 5% confidence band.
+Lower: Color-coded volume bars representing buying/selling pressure.
+🧠 The "Brain": Rule-Based AI Synthesizer
+The core innovation is a Weighted Scoring Algorithm that simulates human judgment without an LLM:
+Scoring Logic: Bullish ML forecasts (+3 pts), High Insider Selling (-3 pts), Overbought RSI (-2 pts), etc.
+Conflict Resolution: If the ML is bullish but the trend is "Strong Bearish," the system penalizes confidence and issues a "Hold" verdict.
+Actionable Insights: Automatically calculates Conservative/Aggressive Entry Points and Stop-Loss levels based on current volatility.
+🚀 Key Innovation: No-API Dependency
+By using a local rule-based engine instead of a Generative AI API:
 Privacy: No financial queries or portfolio interests are sent to third-party servers.
-Zero Cost: The system is 100% free to run indefinitely.
-Reliability: The system will never fail due to "API Rate Limits" or "Model Downtime."
-
-5. Potential Use Cases
-Day Traders: For a quick, data-driven "second opinion" on a setup.
-Long-term Investors: For checking the risk health and insider sentiment of a core holding.
-Students/Developers: As a blueprint for how to coordinate multiple Python scripts into a cohesive "Agentic" system.
-
-6. Development Requirements
+Zero Cost: 100% free to run indefinitely.
+Reliability: No "API Rate Limits" or "Model Downtime."
+🛠️ Installation & Requirements
 Python 3.8+
-Core Libraries: yfinance (Data), scikit-learn (ML), pandas/numpy (Processing), matplotlib (Charts).
-
-Summary of Value
-This project transforms raw market data into a structured investment thesis. It doesn't just give you numbers; it gives you a logical argument for why a stock might be a good or bad investment, supported by machine learning and institutional mathematics.
+Core Libraries:
+code
+Bash
+pip install yfinance scikit-learn pandas numpy matplotlib
+Usage
+Run the main script and enter a ticker or company name:
+code
+Bash
+python main.py
+🎯 Use Cases
+Day Traders: Get a data-driven "second opinion" on trade setups.
+Long-term Investors: Quickly check the risk health and insider sentiment of core holdings.
+Developers: A blueprint for coordinating multiple Python scripts into a cohesive "Agentic" system.
+⚠️ Disclaimer
+This project transforms raw market data into a structured investment thesis for educational purposes. It does not constitute financial advice. Always consult a licensed financial advisor before making investment decisions.
