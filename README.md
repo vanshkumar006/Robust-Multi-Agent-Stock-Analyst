@@ -1,6 +1,8 @@
 🌟 Project Vision
 The system mimics a professional investment committee. Specialized "agents" perform individual tasks—technical analysis, risk management, and fundamental research—before a central Synthesizer generates a final, logic-backed investment report.
 
+kaggle link : https://www.kaggle.com/code/vanshkumar006/robust-multi-agent-stock-analyst
+
 
 🤖 The Multi-Agent Workflow
 The system operates using an Orchestrator Pattern, triggering a specialized sequence for every ticker:
@@ -96,8 +98,6 @@ Long-term Investors: Quickly check the risk health and insider sentiment of core
 
 Developers: A blueprint for coordinating multiple Python scripts into a cohesive "Agentic" system.
 
-
-kaggle link : https://www.kaggle.com/code/vanshkumar006/robust-multi-agent-stock-analyst
 
 
 ⚠️ Disclaimer
